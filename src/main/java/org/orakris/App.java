@@ -3,7 +3,9 @@ package org.orakris;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
 
 /**
  * Hello world!
@@ -14,13 +16,14 @@ public class App
     public static void main( String[] args )
     {
         Insurance insurance = new Insurance();
-        insurance.setId(1);
+        insurance.setId(2);
         insurance.setName("vehicle policy");
         insurance.setAmount(100000);
         insurance.setTenure(10);
 
         Configuration configuration = new Configuration().configure().addAnnotatedClass(Insurance.class);
-        SessionFactory sessionFactory = configuration.buildSessionFactory();
+        ServiceRegistry reg = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
+        SessionFactory sessionFactory = configuration.buildSessionFactory(reg);
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
         session.save(insurance);
