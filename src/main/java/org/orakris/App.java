@@ -16,17 +16,14 @@ public class App
     public static void main( String[] args )
     {
         Insurance insurance = new Insurance();
-        insurance.setId(9);
-        insurance.setName("House insurance policy");
-        insurance.setAmount(100000);
-        insurance.setTenure(50);
 
         Configuration configuration = new Configuration().configure().addAnnotatedClass(Insurance.class);
         ServiceRegistry reg = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
         SessionFactory sessionFactory = configuration.buildSessionFactory(reg);
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
-        session.save(insurance);
+        insurance = (Insurance) session.get(Insurance.class, 3); // to fetch data from database
         tx.commit();
+        System.out.println(insurance);
     }
 }
