@@ -31,6 +31,18 @@ public class App
         Insurance insurance = session.get(Insurance.class, id);
         System.out.println(insurance);
     }
+
+    private static void update(int id, String name, int amount, int tenure, Session session) {
+        Transaction transaction = session.beginTransaction();
+        if (session.get(Insurance.class, id) != null) {
+            Insurance insurance = session.load(Insurance.class, id);
+            insurance.setName(name);
+            insurance.setAmount(amount);
+            insurance.setTenure(tenure);
+            session.update(insurance);
+            transaction.commit();
+        }
+    }
     public static void main( String[] args ) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         Configuration configuration = new Configuration().configure().addAnnotatedClass(Insurance.class);
@@ -48,6 +60,7 @@ public class App
                     exit = true;
                     break;
                 case 1:
+                case 3:
                     System.out.print("Enter policy number: ");
                     id = Integer.parseInt(br.readLine());
                     System.out.print("Enter the policy name: ");
@@ -56,13 +69,17 @@ public class App
                     int amount = Integer.parseInt(br.readLine());
                     System.out.print("Enter the tenure: ");
                     int tenure = Integer.parseInt(br.readLine());
-                    insert(id, name, amount, tenure, session);
+                    if (option == 1)
+                        insert(id, name, amount, tenure, session);
+                    else
+                        update(id, name, amount, tenure, session);
                     break;
                 case 2:
                     System.out.print("Enter the policy number: ");
                     id = Integer.parseInt(br.readLine());
                     retrieve(id, session);
                     break;
+
             }
         }
 
