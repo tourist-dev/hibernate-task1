@@ -27,6 +27,10 @@ public class App
         session.save(insurance);
         transaction.commit();
     }
+    private static void retrieve(int id, Session session) {
+        Insurance insurance = session.get(Insurance.class, id);
+        System.out.println(insurance);
+    }
     public static void main( String[] args ) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         Configuration configuration = new Configuration().configure().addAnnotatedClass(Insurance.class);
@@ -36,15 +40,16 @@ public class App
 
         boolean exit = false;
         while (!exit) {
-            System.out.print("Select\n1.Insert\n2.Update\n3.Delete\n0.Exit\n");
+            System.out.print("Select\n1.Insert\n2.Retrieve\n3.Update\n4.Delete\n0.Exit\n");
             int option = Integer.parseInt(br.readLine());
+            int id;
             switch (option) {
                 case 0:
                     exit = true;
                     break;
                 case 1:
                     System.out.print("Enter policy number: ");
-                    int id = Integer.parseInt(br.readLine());
+                    id = Integer.parseInt(br.readLine());
                     System.out.print("Enter the policy name: ");
                     String name = br.readLine();
                     System.out.print("Enter the amount: ");
@@ -52,6 +57,11 @@ public class App
                     System.out.print("Enter the tenure: ");
                     int tenure = Integer.parseInt(br.readLine());
                     insert(id, name, amount, tenure, session);
+                    break;
+                case 2:
+                    System.out.print("Enter the policy number: ");
+                    id = Integer.parseInt(br.readLine());
+                    retrieve(id, session);
                     break;
             }
         }
