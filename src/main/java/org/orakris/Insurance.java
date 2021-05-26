@@ -1,11 +1,13 @@
 package org.orakris;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
 public class Insurance {
     @Id
+    @Column(name = "pno")
     private int id;
     private String name;
     private int tenure;
