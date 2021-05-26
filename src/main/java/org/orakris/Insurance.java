@@ -44,4 +44,14 @@ public class Insurance {
     public void setAmount(int amount) {
         this.amount = amount;
     }
+
+    @Override
+    public String toString() {
+        return "Insurance{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", tenure=" + tenure +
+                ", amount=" + amount +
+                '}';
+    }
 }
