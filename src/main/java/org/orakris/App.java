@@ -15,7 +15,7 @@ public class App
 {
     public static void main( String[] args )
     {
-        Insurance insurance = new Insurance();
+        Insurance insurance;
 
         Configuration configuration = new Configuration().configure().addAnnotatedClass(Insurance.class);
         ServiceRegistry reg = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
