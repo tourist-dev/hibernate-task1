@@ -8,6 +8,11 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+        Insurance insurance = new Insurance();
+        insurance.setId(1);
+        insurance.setName("vehicle policy");
+        insurance.setAmount(100000);
+        insurance.setTenure(10);
+        
     }
 }
