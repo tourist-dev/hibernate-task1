@@ -16,10 +16,10 @@ public class App
     public static void main( String[] args )
     {
         Insurance insurance = new Insurance();
-        insurance.setId(3);
-        insurance.setName("vehicle policy");
+        insurance.setId(9);
+        insurance.setName("House insurance policy");
         insurance.setAmount(100000);
-        insurance.setTenure(10);
+        insurance.setTenure(50);
 
         Configuration configuration = new Configuration().configure().addAnnotatedClass(Insurance.class);
         ServiceRegistry reg = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
