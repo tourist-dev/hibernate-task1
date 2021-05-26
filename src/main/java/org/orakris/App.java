@@ -43,6 +43,16 @@ public class App
             transaction.commit();
         }
     }
+
+    private static void delete(int id, Session session) {
+        if (session.get(Insurance.class, id) != null) {
+            Transaction transaction = session.beginTransaction();
+            Insurance insurance = (Insurance)session.load(Insurance.class, id);
+            session.delete(insurance);
+            session.flush(); // this makes the pending delete to be done
+            transaction.commit();
+        }
+    }
     public static void main( String[] args ) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         Configuration configuration = new Configuration().configure().addAnnotatedClass(Insurance.class);
@@ -79,7 +89,13 @@ public class App
                     id = Integer.parseInt(br.readLine());
                     retrieve(id, session);
                     break;
-
+                case 4:
+                    System.out.print("Enter the id: ");
+                    id = Integer.parseInt(br.readLine());
+                    delete(id, session);
+                    break;
+                default:
+                    break;
             }
         }
 
